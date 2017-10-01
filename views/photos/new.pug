@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+
+  .col-12.col-lg-8
+    .row.align-items-center.justify-content-center
+      .card
+        h4.card-header Add Photo
+        .card-body
+          .card-title Select Photo for Upload:
+          form( action="create" method="post" enctype="multipart/form-data" )
+            .form-group
+              label.custom-file
+                input#photo.custom-file-input(type="file")
+                span.custom-file-control(data-content="Choose File...")
+            .form-group
+              button.btn.btn-success( type="submit" name="submit" ) Upload Image
+
+  style.
+    .custom-file-control{
+      cursor: pointer;
+      pointer-events: visible;
+    }
+    .custom-file-control:lang(en):empty::after {
+      content: attr(data-content);
+    }
+  script(type="text/javascript").
+    elPhoto = document.querySelector('#photo')
+    elPhoto.addEventListener('change', function (e) {
+      const input = e.target
+      const fileName = input.files[0].name
+      const elFileControl = document.querySelector('.custom-file-control')
+
+      if (input.files <= 0) return;
+
+      elFileControl.setAttribute('data-content', fileName)
+    })

@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    title= title
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+
+    include shared/bootstrap-css
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
+
+  body
+    include shared/nav
+
+    .container.align-items-center.justify-content-center(style="min-height: 80vh; display: flex;")
+      block content
+
+    include shared/bootstrap-js
