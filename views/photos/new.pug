@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 
-  .col-12.col-lg-8
+  .col-12.col-lg-8.align-items-center.justify-content-center(style="min-height: 80vh; display: flex;")
     .row.align-items-center.justify-content-center
       .card
         h4.card-header Add Photo
@@ -11,7 +11,7 @@ block content
           form( action="create" method="post" enctype="multipart/form-data" )
             .form-group
               label.custom-file
-                input#photo.custom-file-input(type="file")
+                input#photo.custom-file-input(type="file" name="photo")
                 span.custom-file-control(data-content="Choose File...")
             .form-group
               button.btn.btn-success( type="submit" name="submit" ) Upload Image

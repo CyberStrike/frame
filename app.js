@@ -45,9 +45,11 @@ app.use( function(req, res, next) {
 // Controller / Routes
 //
 
-app.get('/', function (req, res) {
-  res.render('index', {title: 'Frame'})
-});
+app.get('/', async (req, res) => {
+
+  res.render('index', {title: 'Frame', photos: [1,2,3]})
+
+})
 
 app.get('/photos/new', function (req, res) {
   res.render('photos/new', {title: 'Add A Photo'})
@@ -58,7 +60,7 @@ app.post('/photos/create', upload.single('photo'), async (req, res) => {
 
     const col = await util.loadCollection(COLLECTION_NAME, DB);
     const data = col.insert(req.file);
-
+    
     DB.saveDatabase();
 
     res.redirect(`/photo/${data.$loki}`)
@@ -87,23 +89,24 @@ app.get('/photo/:id', async (req, res) => {
 // Ensure 404 and Show Errors
 //
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  let err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   let err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 // Init Server
 app.listen(3000, function (err) {
   if (err) throw err;
