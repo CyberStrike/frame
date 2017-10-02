@@ -25,13 +25,28 @@ block content
       content: attr(data-content);
     }
   script(type="text/javascript").
-    elPhoto = document.querySelector('#photo')
-    elPhoto.addEventListener('change', function (e) {
-      const input = e.target
-      const fileName = input.files[0].name
-      const elFileControl = document.querySelector('.custom-file-control')
 
-      if (input.files <= 0) return;
-
-      elFileControl.setAttribute('data-content', fileName)
+    ready ( function () {
+      displayFilename()
     })
+
+    function ready(fn) {
+      if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+    function displayFilename () {
+      elPhoto = document.querySelector('#photo')
+      elPhoto.addEventListener('change', function (e) {
+        const input = e.target
+        const fileName = input.files[0].name
+        const elFileControl = document.querySelector('.custom-file-control')
+
+        if (input.files <= 0) return;
+
+        elFileControl.setAttribute('data-content', fileName)
+      })
+    }
